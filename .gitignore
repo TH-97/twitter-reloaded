@@ -28,3 +28,6 @@ dist-ssr
 .DS_Store
 .AppleDouble
 .LSOverride
+
+### firebase ###
+firebase.ts
