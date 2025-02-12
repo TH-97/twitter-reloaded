@@ -1,5 +1,8 @@
 import { useState } from "react";
 import {styled} from "styled-components"
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth/cordova";
+import { useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
@@ -41,6 +44,7 @@ const Error = styled.span`
 `;
 
 export default function CreateAccount(){
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -56,10 +60,16 @@ export default function CreateAccount(){
       setPassword(value)
     }
   };
-  const onSubmit = (e : React.FormEvent<HTMLFormElement>) =>{
+  const onSubmit = async (e : React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
+    if(isLoading || name === ""||email === "" || password === "") return;
     try{
-      //
+      setLoading(true);
+      const credemtials = await createUserWithEmailAndPassword(auth,email,password)
+      await updateProfile(credemtials.user,{
+        displayName : name,
+      });
+      navigate("/")
     }catch(e){
       console.log(e)
     } finally{
@@ -69,7 +79,7 @@ export default function CreateAccount(){
   }
   return (
     <Wrapper>
-      <Tittle>log into ntitter</Tittle>
+      <Tittle>Join ntitter</Tittle>
       <Form onSubmit={onSubmit}>
         <Input onChange={onChange} name="name" value={name} placeholder="name" type="text" required/>
         <Input onChange={onChange} name="email" value={email} placeholder="email" type="email" required/>
