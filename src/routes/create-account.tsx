@@ -71,7 +71,7 @@ export default function CreateAccount(){
       });
       navigate("/")
     }catch(e){
-      console.log(e)
+      //seterror
     } finally{
       setLoading(false);
     }
