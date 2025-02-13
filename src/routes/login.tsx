@@ -5,6 +5,7 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Form, Input, Switcher, Tittle, Wrapper, Error } from "../components/auth-components";
 import GithubButton from "../components/github-btn";
+import PasswordResetButton from "../components/passwordReset-btn";
 
 export default function CreateAccount(){
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ export default function CreateAccount(){
         <Input type="submit" value={isLoading ? "Loading": "Log in" }/>
       </Form>
       {error !== "" ? <Error>{error}</Error> : null}
+      <PasswordResetButton/>
       <Switcher>
         Don't have an account?<Link to="/create-account"> Craete one &rarr;</Link>
       </Switcher>

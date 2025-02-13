@@ -1,3 +1,17 @@
+import { signOut } from "firebase/auth";
+import styled from "styled-components";
+import { auth } from "../firebase";
+
+const LogOut = styled.button`
+  height: 30px;
+`;
+
 export default function Home(){
-  return <h1>Home</h1>
+  const onClick = () =>{
+    signOut(auth)
+    window.location.reload();
+  }
+  return (
+    <LogOut onClick={onClick}>Log out</LogOut>
+  );
 }
