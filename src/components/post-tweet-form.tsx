@@ -123,6 +123,8 @@ export default function PostTweetForm() {
         userTd: user.uid,
         file: base64,
       });
+      setTweet("");
+      setBase64("");
     } catch (e) {
       console.log(e);
     } finally {
